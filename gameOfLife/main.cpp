@@ -136,6 +136,7 @@ int main() {
 	std::cout << "I/O - Zoom in / Zoom out\n";
 	std::cout << "Right/Left arrow keys - increase/decrease cycle frequency\n";
 	std::cout << "Space bar - pause/unpause the game\n\n";
+	std::cout << "Game is paused\n";
 
 	CellTable table(rows, cols);
 	sf::Color gray(128, 128, 128);
@@ -149,7 +150,7 @@ int main() {
 	
 	sf::Vector2f oldPos;
 	bool rmbPressed = 0, paused = 1;
-	unsigned int cycleFrequencyMs = 1024;
+	unsigned int cyclePeriodMs = 1024;
 	sf::Clock clock;
 
 	while (window.isOpen()) {
@@ -179,15 +180,15 @@ int main() {
 					break;
 
 				case sf::Keyboard::Left:
-					if (cycleFrequencyMs < 8192)
-						cycleFrequencyMs *= 2;
-					std::cout << "New cycle frequency: " << cycleFrequencyMs << " ms\n";
+					if (cyclePeriodMs < 8192)
+						cyclePeriodMs *= 2;
+					std::cout << "New cycle period: " << cyclePeriodMs << " ms\n";
 					break;
 
 				case sf::Keyboard::Right:
-					if (cycleFrequencyMs > 64)
-						cycleFrequencyMs /= 2;
-					std::cout << "New cycle frequency: " << cycleFrequencyMs << " ms\n";
+					if (cyclePeriodMs > 64)
+						cyclePeriodMs /= 2;
+					std::cout << "New cycle period: " << cyclePeriodMs << " ms\n";
 					break;
 
 				case sf::Keyboard::Space:
@@ -229,7 +230,10 @@ int main() {
 		}
 
 		sf::Time elapsed = clock.getElapsedTime();
-		if (elapsed.asMilliseconds() >= cycleFrequencyMs && !paused) {
+		if (paused) {
+			clock.restart();
+		}
+		else if (elapsed.asMilliseconds() >= cyclePeriodMs) {
 			table.updateTable();
 			clock.restart();
 		}
