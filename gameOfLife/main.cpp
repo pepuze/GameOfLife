@@ -149,8 +149,8 @@ int main() {
 	window.setView(view);
 	
 	sf::Vector2f oldPos;
-	bool rmbPressed = 0, paused = 1;
-	unsigned int cyclePeriodMs = 1024;
+	bool rmbPressed = 0, paused = 1, lmbPressed = 0;
+	unsigned int cyclePeriodMs = 1024, iRowPrev = rows, iColPrev = cols;
 	sf::Clock clock;
 
 	while (window.isOpen()) {
@@ -202,6 +202,15 @@ int main() {
 					rmbPressed = 1;
 					oldPos = sf::Vector2f(sf::Mouse::getPosition());
 				}
+
+				if (event.mouseButton.button == sf::Mouse::Left) {
+					lmbPressed = 1;
+					sf::Vector2f mousePosWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+					const unsigned int iRow = (unsigned int)floor(mousePosWorld.y / table.getCellSize()), iCol = (unsigned int)floor(mousePosWorld.x / table.getCellSize());
+					table.changeCellState(iRow, iCol);
+					iRowPrev = iRow;
+					iColPrev = iCol;
+				}
 				break;
 
 			case sf::Event::MouseButtonReleased:
@@ -209,9 +218,9 @@ int main() {
 					rmbPressed = 0;
 				}
 				if (event.mouseButton.button == sf::Mouse::Left) {
-					sf::Vector2f mousePosWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-					const unsigned int iRow = (unsigned int)floor(mousePosWorld.y / table.getCellSize()), iCol = (unsigned int)floor(mousePosWorld.x / table.getCellSize());
-					table.changeCellState(iRow, iCol);
+					lmbPressed = 0;
+					iRowPrev = rows;
+					iColPrev = cols;
 				}
 				break;
 
@@ -224,6 +233,17 @@ int main() {
 					view.move(dPos);
 					window.setView(view);
 					oldPos = newPos;
+				}
+
+				if (lmbPressed) {
+					sf::Vector2f mousePosWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+					const unsigned int iRow = (unsigned int)floor(mousePosWorld.y / table.getCellSize()), iCol = (unsigned int)floor(mousePosWorld.x / table.getCellSize());
+
+					if (iRow != iRowPrev || iCol != iColPrev) {
+						table.changeCellState(iRow, iCol);
+						iRowPrev = iRow;
+						iColPrev = iCol;
+					}
 				}
 				break;
 			}

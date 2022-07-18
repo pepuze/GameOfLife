@@ -53,17 +53,17 @@ A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(146,57): warning C4244: аргу�
 A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(148,12): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
 A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(171,16): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
 A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(178,16): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(222,23): warning C4244: *=: преобразование "double" в "T", возможна потеря данных
+A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(231,23): warning C4244: *=: преобразование "double" в "T", возможна потеря данных
           with
           [
               T=float
           ]
-A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(223,23): warning C4244: *=: преобразование "double" в "T", возможна потеря данных
+A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(232,23): warning C4244: *=: преобразование "double" в "T", возможна потеря данных
           with
           [
               T=float
           ]
-A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(236,37): warning C4018: >=: несоответствие типов со знаком и без знака
+A:\projects\cpp\gameOfLife\gameOfLife\main.cpp(255,37): warning C4018: >=: несоответствие типов со знаком и без знака
   Создание кода
   1 of 64 functions ( 1.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
